@@ -1,66 +1,88 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="result.aspx.cs" Inherits="yogesh.result" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="result.aspx.cs" Inherits="yogesh.result" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Robust Calculator</title>
     <style type="text/css">
-        .auto-style1 
-        {
-              margin-left: auto;
-              margin-right: auto;
-              align-content:center;
-
+        .calculator {
+            margin: auto;
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #ccc;
+            text-align: center;
         }
 
+        .display {
+            height: 40px;
+            width: 100%;
+            font-size: 18px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .btn {
+            width: 50px;
+            height: 40px;
+            font-size: 16px;
+            margin: 4px;
+            border: 1px solid #333;
+        }
+
+        .header {
+            background-color: #0000FF;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
     </style>
+    <script type="text/javascript">
+        function enforceMaxLength(el, maxLen) {
+            if (el.value.length > maxLen) {
+                el.value = el.value.slice(0, maxLen);
+            }
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div style="background-color: #0000FF; background-position: center">
-            <asp:Label ID="Label1" runat="server" Font-Size="Large" ForeColor="White" Text="Calculator"></asp:Label>
-            <hr />
-        </div>
-        <hr />
-        <div>
-            <table style="width:auto;" >
+        <div class="calculator">
+            <div class="header">Calculator</div>
+
+            <asp:TextBox ID="TextBox1" runat="server" CssClass="display" ReadOnly="True"></asp:TextBox>
+
+            <table style="margin:auto;">
                 <tr>
-                    <td colspan="4">
-                        <asp:TextBox ID="TextBox1" runat="server" BorderStyle="Solid" CssClass="auto-style1" Height="42px" Width="183px" TextMode="Number" MaxLength="5"></asp:TextBox></td>
+                    <td><asp:Button runat="server" Text="1" CssClass="btn" OnClick="Button_Click" CommandArgument="1" /></td>
+                    <td><asp:Button runat="server" Text="2" CssClass="btn" OnClick="Button_Click" CommandArgument="2" /></td>
+                    <td><asp:Button runat="server" Text="3" CssClass="btn" OnClick="Button_Click" CommandArgument="3" /></td>
+                    <td><asp:Button runat="server" Text="+" CssClass="btn" OnClick="Button_Click" CommandArgument="+" /></td>
                 </tr>
                 <tr>
-                    <td><asp:Button ID="Button1" runat="server" Text="1" OnClick="Button1_Click" Width="43px" BorderStyle="Solid" /></td>                    
-                    <td><asp:Button ID="Button2" runat="server" Text="2" OnClick="Button2_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button3" runat="server" Text="3" OnClick="Button3_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button13" runat="server" Text="+" OnClick="Button13_Click" Width="43px" BorderStyle="Solid" /></td>
+                    <td><asp:Button runat="server" Text="4" CssClass="btn" OnClick="Button_Click" CommandArgument="4" /></td>
+                    <td><asp:Button runat="server" Text="5" CssClass="btn" OnClick="Button_Click" CommandArgument="5" /></td>
+                    <td><asp:Button runat="server" Text="6" CssClass="btn" OnClick="Button_Click" CommandArgument="6" /></td>
+                    <td><asp:Button runat="server" Text="-" CssClass="btn" OnClick="Button_Click" CommandArgument="-" /></td>
                 </tr>
                 <tr>
-                    <td><asp:Button ID="Button4" runat="server" Text="4" OnClick="Button4_Click" Width="43px" BorderStyle="Solid" /></td>                    
-                    <td><asp:Button ID="Button5" runat="server" Text="5" OnClick="Button5_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button6" runat="server" Text="6" OnClick="Button6_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button14" runat="server" Text="-" OnClick="Button14_Click" Width="43px" BorderStyle="Solid" /></td>
+                    <td><asp:Button runat="server" Text="7" CssClass="btn" OnClick="Button_Click" CommandArgument="7" /></td>
+                    <td><asp:Button runat="server" Text="8" CssClass="btn" OnClick="Button_Click" CommandArgument="8" /></td>
+                    <td><asp:Button runat="server" Text="9" CssClass="btn" OnClick="Button_Click" CommandArgument="9" /></td>
+                    <td><asp:Button runat="server" Text="×" CssClass="btn" OnClick="Button_Click" CommandArgument="*" /></td>
                 </tr>
                 <tr>
-                    <td><asp:Button ID="Button7" runat="server" Text="7" OnClick="Button7_Click" Width="43px" BorderStyle="Solid" /></td>                    
-                    <td><asp:Button ID="Button8" runat="server" Text="8" OnClick="Button8_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button9" runat="server" Text="9" OnClick="Button9_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button15" runat="server" Text="X" OnClick="Button15_Click" Width="43px" BorderStyle="Solid" /></td>
-                </tr>
-                <tr>
-                    <td><asp:Button ID="Button10" runat="server" Text="AC" OnClick="Button10_Click" Width="43px" BorderStyle="Solid" /></td>                    
-                    <td><asp:Button ID="Button11" runat="server" Text="0" OnClick="Button11_Click" Width="43px" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button12" runat="server" Text="=" Width="43px" OnClick="Button12_Click" BorderStyle="Solid" /></td>
-                    <td><asp:Button ID="Button16" runat="server" Text="/" OnClick="Button16_Click" Width="43px" BorderStyle="Solid" /></td>
+                    <td><asp:Button runat="server" Text="AC" CssClass="btn" OnClick="Clear_Click" /></td>
+                    <td><asp:Button runat="server" Text="0" CssClass="btn" OnClick="Button_Click" CommandArgument="0" /></td>
+                    <td><asp:Button runat="server" Text="=" CssClass="btn" OnClick="Equals_Click" /></td>
+                    <td><asp:Button runat="server" Text="÷" CssClass="btn" OnClick="Button_Click" CommandArgument="/" /></td>
                 </tr>
             </table>
-       </div>
-        <asp:Label ID="Label2" runat="server" Text=" "></asp:Label>
-        <p>
-            &nbsp;</p>
-        <p>
-            <asp:Label ID="Label3" runat="server" Text=" "></asp:Label>
-        </p>
+
+            <asp:Label ID="LabelResult" runat="server" Font-Size="Medium" ForeColor="DarkGreen" />
+        </div>
     </form>
 </body>
 </html>
